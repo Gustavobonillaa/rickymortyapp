@@ -19,7 +19,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -42,10 +41,14 @@ class _HomeState extends State<Home> {
           ),
           //Banner
           BannerCard(),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           //Categories
           CategoriesList(),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           //List
           getCharacters(),
           //Text
@@ -61,8 +64,10 @@ class _HomeState extends State<Home> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text('See all',
-                style: TextStyle(color: Colors.grey),)
+                Text(
+                  'See all',
+                  style: TextStyle(color: Colors.grey),
+                )
               ],
             ),
           ),
@@ -74,35 +79,32 @@ class _HomeState extends State<Home> {
   }
 }
 
- FutureBuilder<List<Ryckymorty>> getCharacters() => FutureBuilder<List<Ryckymorty>>(
-      future: apiController.getCharacters(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Container(
-            height: 300,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
+FutureBuilder<List<Ryckymorty>> getCharacters() =>
+    FutureBuilder<List<Ryckymorty>>(
+        future: apiController.getCharacters(),
+        builder: (context, snapshot) {
+          print(snapshot);
+          if (!snapshot.hasData) {
+            return Container(
+              height: 300,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
 
-        final List<Ryckymorty> characters = snapshot.data ?? [];
-        final bool characterCounter = characters.isNotEmpty;
-        if (characterCounter) {
-          return _buildMyCharacters(characters);
-        } else {
-          return Container();
-        }
-      });
+          final List<Ryckymorty> characters = snapshot.data ?? [];
+          final bool characterCounter = characters.isNotEmpty;
+          if (characterCounter) {
+            return _buildMyCharacters(characters);
+          } else {
+            return Container();
+          }
+        });
 
-  Widget _buildMyCharacters(List<Ryckymorty> characters) {
-    return Container(
-      height: 330,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return ProductorCard(rickymorty: characters[index]);
-          }),
-    );
-  }
+Widget _buildMyCharacters(List<Ryckymorty> characters) {
+  return Container(
+    height: 330,
+    child: ProductorCard(rickymortylist: characters),
+  );
+}

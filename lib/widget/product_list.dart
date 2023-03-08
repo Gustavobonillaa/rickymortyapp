@@ -5,28 +5,25 @@ import 'package:rickymorty/utils/constants.dart';
 
 import '../model/rickymorty_model.dart';
 
-
-
 class ProductorCard extends StatefulWidget {
-  const ProductorCard({super.key, required this.rickymorty});
-   final Ryckymorty rickymorty;
-   
-  
+  const ProductorCard({super.key, required this.rickymortylist});
+  final List<Ryckymorty> rickymortylist;
+
   @override
   State<ProductorCard> createState() => _ProductorCardState();
 }
 
 class _ProductorCardState extends State<ProductorCard> {
   late PageController _controller;
-   late final Ryckymorty rickymorty;
-   
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _controller = PageController(initialPage: 2, viewportFraction: 0.58);
+    loadData();
   }
+
+  void loadData() {}
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +34,10 @@ class _ProductorCardState extends State<ProductorCard> {
       child: PageView.builder(
           controller: _controller,
           physics: BouncingScrollPhysics(),
-          itemCount: product.length,
+          itemCount: widget.rickymortylist.length,
           itemBuilder: (context, index) {
-            Product data = product[index];
-            
+            Ryckymorty data = widget.rickymortylist[index];
+
             return Column(
               children: [
                 Container(
@@ -50,12 +47,10 @@ class _ProductorCardState extends State<ProductorCard> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                          image: AssetImage(data.imgUrl), fit: BoxFit.cover)),
-                          child: Column(
-                            
+                          image: AssetImage(data.image), fit: BoxFit.cover)),
+                  child: Column(
                     children: [
                       Row(
-                        
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Icon(

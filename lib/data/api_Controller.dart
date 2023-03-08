@@ -4,8 +4,7 @@ import '../model/rickymorty_model.dart';
 import '../repositories/api_Repository.dart';
 import 'package:http/http.dart' as http;
 
-class ApiController{
-
+class ApiController {
   final apiRepository = ApiRepository();
 
   Future<List<Ryckymorty>> getCharacters() async {
@@ -13,6 +12,7 @@ class ApiController{
     List<Ryckymorty> characters = [];
 
     final bool validateStatusCode = response.statusCode == 200;
+    print(response.body);
     if (validateStatusCode) {
       final Map dataFromAPI = jsonDecode(response.body);
       final List<dynamic> charactersResults = dataFromAPI["results"];
@@ -26,4 +26,3 @@ class ApiController{
 }
 
 final apiController = ApiController();
-
