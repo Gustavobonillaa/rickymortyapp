@@ -1,4 +1,4 @@
-# proyecto_2
+# RickYMorty
 
 A new Flutter project.
 
